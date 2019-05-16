@@ -10,7 +10,7 @@
     using Newtonsoft.Json;
     using ServiceDiscovery.Providers;
     using Values;
-
+    using etcd.Provider.Cluster.Extensions;
     public class Etcd : IServiceDiscoveryProvider
     {
         private readonly EtcdRegistryConfiguration _config;
@@ -22,22 +22,22 @@
         {
             _logger = factory.CreateLogger<Etcd>();
             _config = config;
-            _etcdClient = clientFactory.Get(_config);
+           _etcdClient = clientFactory.Get(_config);
         }
 
         public async Task<List<Service>> Get()
         {
             // /Ocelot/Services/srvname/srvid
-            var queryResult = await _etcdClient.GetRangeAsync($"/Ocelot/Services/{_config.KeyOfServiceInEtcd}");
-
+            EtcdClient client = new EtcdClient(_config.Host, _config.Port);
+                var queryResult = await client.GetRangeAsync($"/Ocelot/Services/{_config.KeyOfServiceInEtcd}");
             var services = new List<Service>();
 
-            foreach (var dic in queryResult)
+            foreach (var dic in queryResult.Kvs)
             {
-                var srvs = dic.Key.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                var srvs = dic.Key.FromGoogleString().Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 if (srvs.Length == 4)
                 {
-                    var serviceEntry = JsonConvert.DeserializeObject<ServiceEntry>(dic.Value);
+                    var serviceEntry = JsonConvert.DeserializeObject<ServiceEntry>(dic.Value.FromGoogleString());
                     serviceEntry.Name = srvs[2];
                     serviceEntry.Id = srvs[3];
                     if (IsValid(serviceEntry))
