@@ -20,7 +20,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <Authors>jinyu成都</Authors>
     <CodeAnalysisRuleSet>..\..\codeanalysis.ruleset</CodeAnalysisRuleSet>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <PackageReleaseNotes>引用项目：https://github.com/BuiltCloud/Ocelot.Provider.Etcd</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -29,7 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="dotnet-etcd" Version="2.3.1" />
-    <PackageReference Include="etcd.Provider.Cluster.Extensions" Version="1.1.0" />
+    <PackageReference Include="etcd.Provider.Cluster.Extensions" Version="1.2.1" />
     <PackageReference Include="Ocelot" Version="13.5.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>

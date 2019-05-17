@@ -1,6 +1,5 @@
 ﻿namespace Ocelot.Provider.Etcd
 {
-    using System;
     using dotnet_etcd;
     using etcd.Provider.Cluster.Extensions;
 
