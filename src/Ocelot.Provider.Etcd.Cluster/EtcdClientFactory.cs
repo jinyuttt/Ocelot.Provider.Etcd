@@ -1,4 +1,4 @@
-﻿namespace Ocelot.Provider.Etcd
+﻿namespace Ocelot.Provider.Etcd.Cluster
 {
     using dotnet_etcd;
     using etcd.Provider.Cluster.Extensions;

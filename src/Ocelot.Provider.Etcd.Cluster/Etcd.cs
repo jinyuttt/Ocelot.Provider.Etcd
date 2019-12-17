@@ -1,4 +1,4 @@
-﻿namespace Ocelot.Provider.Etcd
+﻿namespace Ocelot.Provider.Etcd.Cluster
 {
     using System;
     using System.Collections.Generic;
@@ -25,7 +25,6 @@
         {
             logger = factory.CreateLogger<Etcd>();
             this.config = config;
-            // _etcdClient = clientFactory.Get(_config);
             this.etcdClientFactory = clientFactory;
             Services = new List<Service>();
         }
@@ -40,6 +39,7 @@
             if (Services.Count == 0)
             {
                 EtcdClient client = etcdClientFactory.Get(this.config);
+                MonitorKeys();
                 var queryResult = await client.GetRangeAsync($"/Ocelot/Services/{config.KeyOfServiceInEtcd}");
                 foreach (var dic in queryResult.Kvs)
                 {
@@ -63,6 +63,11 @@
             return new List<Service>(Services);
         }
 
+        /// <summary>
+        /// 添加服务列表
+        /// </summary>
+        /// <param name="serviceEntry"></param>
+        /// <returns></returns>
         private Service BuildService(ServiceEntry serviceEntry)
         {
             return new Service(
@@ -73,6 +78,11 @@
                 serviceEntry.Tags ?? Enumerable.Empty<string>());
         }
 
+        /// <summary>
+        /// 验证接口
+        /// </summary>
+        /// <param name="serviceEntry"></param>
+        /// <returns></returns>
         private bool IsValid(ServiceEntry serviceEntry)
         {
             if (string.IsNullOrEmpty(serviceEntry.Host) || serviceEntry.Host.Contains("http://") || serviceEntry.Host.Contains("https://") || serviceEntry.Port <= 0)
@@ -82,6 +92,11 @@
             return true;
         }
 
+        /// <summary>
+        /// 获取版本信息
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
         private string GetVersionFromStrings(IEnumerable<string> strings)
         {
             return strings
@@ -89,9 +104,12 @@
                 .TrimStart(VersionPrefix);
         }
 
+        /// <summary>
+        /// 监视服务信息
+        /// </summary>
         private void MonitorKeys()
         {
-           var client=this.etcdClientFactory.Get(this.config);
+            var client=this.etcdClientFactory.Get(this.config);
             client.WatchRange($"/Ocelot/Services/{this.config.KeyOfServiceInEtcd}", new Action<WatchEvent[]>(p =>
              {
                  foreach (var w in p)
@@ -108,6 +126,12 @@
                  }
              }));
         }
+
+        /// <summary>
+        /// 添加服务
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         private void Add(string key,string value)
         {
             var srvs = key.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
@@ -124,6 +148,11 @@
             }
         }
 
+        /// <summary>
+        /// 删除服务
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         private void Delete(string key, string value)
         {
             var srvs = key.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);

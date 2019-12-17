@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Version>1.1.0</Version>
+    <Description>发布</Description>
+    <PackageProjectUrl>https://github.com/jinyuttt/Ocelot.Provider.Etcd.git</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dotnet-etcd" Version="3.0.0" />
+    <PackageReference Include="Ocelot" Version="13.8.0" />
+    <PackageReference Include="Ocelot.Provider.Etcd.Extensions" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>

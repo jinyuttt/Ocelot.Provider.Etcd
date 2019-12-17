@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.Provider.Etcd", "src\Ocelot.Provider.Etcd\Ocelot.Provider.Etcd.csproj", "{5586B417-9B79-4FCE-A07E-27A2F23EF10E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.Provider.Etcd.Cluster", "src\Ocelot.Provider.Etcd.Cluster\Ocelot.Provider.Etcd.Cluster.csproj", "{BABA48A9-F708-48DF-871F-635035259DC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5586B417-9B79-4FCE-A07E-27A2F23EF10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5586B417-9B79-4FCE-A07E-27A2F23EF10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5586B417-9B79-4FCE-A07E-27A2F23EF10E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABA48A9-F708-48DF-871F-635035259DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABA48A9-F708-48DF-871F-635035259DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABA48A9-F708-48DF-871F-635035259DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABA48A9-F708-48DF-871F-635035259DC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
